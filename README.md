@@ -6,7 +6,7 @@ This is a sample project from the TypeScript book : [*TypeScript Deep Dive*](htt
 # Setup
 
 ```
-git clone https://github.com/basarat/react-typescript.git
+git clone https://github.com/joeray/react.git
 npm install
 npm start
 ```
