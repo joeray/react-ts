@@ -1,23 +1,35 @@
 import * as React from "react";
-
+import Movie from "../../components/movie/Movie"
+import MoviesStore from "../../stores/MoviesStores"
 interface IMovieProp {
     question:string,
     shoutOut: string,
     createNewShoutOut: any
 }
+interface IMovieState {
+    movies: Array<any>
+}
 
-export class Movies extends React.Component<IMovieProp> {
-    createShoutOut(e) {
-        const shoutOut = e.target.value;
-        this.props.createNewShoutOut(shoutOut);
+export class Movies extends React.Component<IMovieProp, IMovieState> {
+
+    public movies;
+    constructor(){
+        super();
+        this.state = {
+            movies: MoviesStore.getMovies()
+        }
+        
     }
     render() {
+        const {movies} = this.state;
+        
+        const movieList = movies.map((movie) => {
+            return <Movie key={movie.episode_id} {...movie}/>
+        })
         return (
             <div>
                 <h2>Movies List 1</h2>
-                <h4>{this.props.question}</h4>
-                <h4>Current ShoutOut--{this.props.shoutOut}!!!</h4>
-                <input onChange= {this.createShoutOut.bind(this)}/>
+                <ul>{movieList}</ul>
             </div>
         );
     }
