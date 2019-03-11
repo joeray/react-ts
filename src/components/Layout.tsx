@@ -1,68 +1,74 @@
 import * as React from "react";
 import {
-    BrowserRouter as Router,
-    Route,
-    Link, Switch
-  } from 'react-router-dom';
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
 
 import { Movies } from "./movies/Movies";
+import Movie from "./movie/Movie";
 import { Characters } from "./characters/Characters";
-import Shoutouts from "./shoutouts/shoutouts";
-
+import History from "react-history/BrowserHistory";
 
 interface ImyComponentState {
-    welcome: string;
-    shoutOut: string;
+  character: string;
+  movie: string;
 }
 
 interface ImyComponentProps {
-    welcomeProp: string;
-    shoutOutProp: string;
+  moviesProp: string;
+  charactersProp: any;
 }
 
 export class Layout extends React.Component<ImyComponentProps, ImyComponentState> {
-    constructor(props: ImyComponentProps){
-        super(props);
-        this.state = {welcome: this.props.welcomeProp,
-        shoutOut: this.props.shoutOutProp};
-    }
+  constructor(props: ImyComponentProps) {
+    super(props);
+    this.state = {
+      character: this.props.charactersProp,
+      movie: this.props.moviesProp,
+    };
+  }
 
-    render() {
-        let ourStyleObject = {
-            marginLeft: 30
-        }
-        const movieQuestion ="Have you seen all of these Movies?";
-        const charactersQuestion = "What do you know about each of these characters?";
-        return (
-            <Router>
-                <div>
-                    <nav className="navbar navbar-default">
-                        <div className="container-fluid" >
-                            <div className="navbar-header">
-                                <p className="navbar-brand">React! &nbsp;</p>
-                                <Link to="/movies" className="btn btn-default navbar-btn">Movies</Link>&nbsp;
-                                <Link to="/characters-list" className="btn btn-default navbar-btn">Characters</Link>
-                            </div>
-
-                            <p className="navbar-brand">&nbsp;{this.state.welcome}</p>
-                        </div>
-                    </nav>
-                    <div className="row">
-                        <div className="col-sm-7" style={ourStyleObject}>
-                            <div className="well">
-                                {this.props.children}
-                                <Switch>
-                                    <Route path='/movies' component={Movies} />
-                                    <Route path='/characters-list' component={Characters} />
-                                </Switch>
-                            </div>
-                        </div>
-                        <div className="col-sm-4">
-                            <div className="well"><Shoutouts/></div>
-                        </div>
-                    </div>
-                </div>
-            </Router>
-        )
+  render() {
+    let ourStyleObject = {
+      marginLeft: 30
     }
+    return (
+      <Router>
+        <div>
+          <div className="page-header">
+            <h1>Star wars<small> App</small></h1>
+          </div>
+          <div className="col-md-12">
+            <Switch>
+              <Route path='/movie' component={Movie} />
+            </Switch>
+          </div>
+          <div className="well">
+            <Movies title="" opening_crawl="" producer="" director="" release_date="" location="" episode_id={0} />
+          </div>
+          <hr />
+          <div className="row">
+            <div className="col-sm-7" style={ourStyleObject}>
+              <div className="well"><Characters /></div>
+            </div>
+            <div className="col-sm-4">
+              <h2>History:</h2>
+              <History>
+                {({ history, action, location }) => (
+                  <div>
+                    <p>
+                      The current URL is {location.pathname}
+                    </p>
+                    <p>You arrived at this URL via a {action} action.</p>
+                  </div>
+                )}
+              </History>
+            </div>
+          </div>
+
+        </div>
+      </Router>
+    )
+  }
 }

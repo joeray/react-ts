@@ -7,16 +7,18 @@ interface ICharacter {
     skin_color: string, 
     eye_color: string, 
     birth_year: string,
-    gender: string
+    gender: string,
+    index:any
 }
-export default class Character extends React.Component<ICharacter> {
+export default class Character extends React.Component<ICharacter, any> {
     render() {
     const {
-        name, height, mass, hair_color, skin_color, eye_color, birth_year,gender
+        name, index, height, mass, hair_color, skin_color, eye_color, birth_year,gender
     }= this.props;
         return (
-            <li>
+            <li className="carousel__slide">
             <div><h2>{name}</h2></div>
+            <div>index: {index}</div>
             <div>Height: {height}</div>
             <div>Mass: {mass}</div>
             <div>Hair Color: {hair_color}</div>

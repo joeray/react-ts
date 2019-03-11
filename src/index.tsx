@@ -2,10 +2,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import { Layout } from "./components/Layout";
-import { Movies } from "./components/movies/movies";
-import { Characters } from "./components/characters/characters";
-// const hashHistory={};
 
-const app = document.getElementById("example");
+const app = document.getElementById("mainContainer");
 
-ReactDOM.render(<Layout welcomeProp="" shoutOutProp=""/>, app);
+ReactDOM.render(
+<Layout moviesProp="" charactersProp="" />, 
+app);
