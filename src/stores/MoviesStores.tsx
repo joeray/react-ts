@@ -1,5 +1,4 @@
 import { EventEmitter } from "events";
-import dispatcher from "../dispatcher";
 import axios from "axios";
 
 interface IMoviesStore {
@@ -9,6 +8,9 @@ interface IMoviesStore {
 }
 class MoviesStore extends EventEmitter<IMoviesStore> {
   public movies;
+  public series;
+  public families;
+  public documentaries;
   public movieFound = {};
   public on: any;
   public emit;
@@ -16,59 +18,93 @@ class MoviesStore extends EventEmitter<IMoviesStore> {
 
   constructor() {
     super();
-    this.emit = this.emit.bind(this);
     this.movieFound;
-    this.movies = [
-      {
-        "title": "Last Jedi",
-        "episode_id": 6,
-        "opening_crawl": "Lorem ipsum",
-        "director": "George Lucas",
-        "producer": "anyone",
-        "release_date": "whenever"
-      },
-      {
-        "title": "Last Jedi 2",
-        "episode_id": 7,
-        "opening_crawl": "Lorem ipsum 2"
-      }
-    ]
+    this.movies = [{}];
+    this.series = [{}];
+    this.families = [{}];
+    this.documentaries = [{}];
   }
 
   getSingleMovie(name) {
-    axios.get(`https://swapi.co/api/films/?search=${name}`)
+    axios
+      .get(
+        `https://api.themoviedb.org/3/search/movie?api_key=9cd6d92edbd72b7789d493a35a827fb5&query=${name}`
+      )
       .then(response => {
         if (response.status === 200) {
-          this.movieFound = response.data.results[0];
+          this.movieFound = response.data.results;
           this.emit("newMovieFound");
         }
       })
+      .catch(err => {
+        console.log("request failed");
+      });
   }
 
   getMovies() {
-    axios.get('https://swapi.co/api/films/')
+    axios
+      .get(
+        "https://api.themoviedb.org/3/movie/popular?api_key=9cd6d92edbd72b7789d493a35a827fb5&language=en-US&page=1"
+      )
       .then(response => {
         if (response.status === 200) {
           this.movies = response.data.results;
-
           this.emit("newMoviesReceived");
         }
       })
+      .catch(err => {
+        console.log("request failed");
+      });
   }
 
-  actionListener(action) {
-    switch (action.type) {
-      case "RECEIVE_DATA": {
-        this.addMovies(action.data);
-      }
-    }
+  getSeries() {
+    axios
+      .get(
+        "https://api.themoviedb.org/3/tv/popular?api_key=9cd6d92edbd72b7789d493a35a827fb5&language=en-US&page=1"
+      )
+      .then(response => {
+        if (response.status === 200) {
+          this.series = response.data.results;
+          this.emit("newSeriesReceived");
+        }
+      })
+      .catch(err => {
+        console.log("request failed");
+      });
   }
 
-  addMovies(data) {
-    this.movies.push(data);
+  getFamilies() {
+    axios
+      .get(
+        "https://api.themoviedb.org/3/discover/movie?api_key=9cd6d92edbd72b7789d493a35a827fb5&with_genres=10751&language=en-US&page=1"
+      )
+      .then(response => {
+        if (response.status === 200) {
+          this.families = response.data.results;
+          this.emit("newFamiliesReceived");
+        }
+      })
+      .catch(err => {
+        console.log("request failed");
+      });
+  }
+
+  getDocumentaries() {
+    axios
+      .get(
+        "https://api.themoviedb.org/3/discover/movie?api_key=9cd6d92edbd72b7789d493a35a827fb5&with_genres=99&language=en-US&page=1"
+      )
+      .then(response => {
+        if (response.status === 200) {
+          this.documentaries = response.data.results;
+          this.emit("newDocumentariesReceived");
+        }
+      })
+      .catch(err => {
+        console.log("request failed");
+      });
   }
 }
 
-const moviesStore = new MoviesStore;
-dispatcher.register(moviesStore.actionListener.bind(moviesStore));
+const moviesStore = new MoviesStore();
 export default moviesStore;

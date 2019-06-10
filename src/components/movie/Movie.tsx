@@ -1,52 +1,79 @@
 import * as React from "react";
+import { NavLink } from "react-router-dom";
+import "./movie.scss";
 
 interface ISingleMovie {
-    title: String,
-    opening_crawl: String,
-    director: String,
-    producer: String,
-    release_date: String,
-    location: any,
+  id: String;
+  title: String;
+  overview: String;
+  release_date: String;
+  poster_path: string;
+  popularity: string;
+  location: any;
 }
 
 export default class Movies extends React.Component<ISingleMovie> {
+  public location: any;
+  retrievedProps: any;
 
-    public location: any;
-    retrievedProps: any;
+  constructor(props) {
+    super();
+    this.props = props;
+  }
 
-    constructor(props) {
-        super();
-        this.props = props;
+  render() {
+    let without = {
+      listStyle: "none"
+    };
+    if (this.props.location) {
+      this.props = this.props.location.state.referrer;
     }
-
-    render() {
-        let without = {
-            listStyle: "none"
-          }
-        if (this.props.location) {
-            this.props = this.props.location.state.referrer
-        }
-        const {
-            title, opening_crawl, director, producer, release_date
-        } = this.props;
-
-        return (
-            <li style={without}>
-                <div className="panel panel-default">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">{title}</h3>
-                    </div>
-                    <div className="panel-body">
-                        <div><p>{opening_crawl}</p></div>
-                    </div>
-                    <div className="panel-footer">
-                        <div>Director: {director}</div>
-                        <div>Producer: {producer}</div>
-                        <div>Release Date: {release_date}</div>
-                    </div>
-                </div>
-            </li>
-        )
-
-    }
+    const {
+      id,
+      title,
+      overview,
+      release_date,
+      poster_path,
+      popularity
+    } = this.props;
+    return (
+      <li className="row" style={without}>
+        <div className="col-sm-6">
+          <div className="panel-heading">
+            <h3 className="panel-title">{title}</h3>
+          </div>
+          <div className="panel-body">
+            <div>
+              <span className="label">Description:</span>
+              <p>{overview}</p>
+            </div>
+          </div>
+          <hr />
+          <div className="panel-footer">
+            <div>
+              <span className="label">Release Date:</span> {release_date}
+            </div>
+            <div>
+              <span className="label">Popularity:</span> {popularity}
+            </div>
+          </div>
+          <NavLink
+            exact={true}
+            to={{
+              pathname: `/player/${id}`,
+              state: { referrer: this.props }
+            }}
+          >
+            <div className="play-button">Play movie</div>
+          </NavLink>
+        </div>
+        <div className="col-sm-6">
+          <img
+            width="80%"
+            src={`http://image.tmdb.org/t/p/w342/${poster_path}`}
+          />
+        </div>
+      </li>
+    );
+  }
 }

@@ -1,0 +1,27 @@
+.movies-row {
+    height: 200px;
+    overflow: hidden;
+}
+
+.single-movie {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.col-3 {
+    height: 300px;
+}
+
+.title {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: wheat;
+    background: rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.flex-nowrap {
+    overflow-x: scroll;
+}
