@@ -1,8 +1,6 @@
 # Objective
 
-Provide a simple setup steps that can fit in one page.
-
-This is a sample project from the TypeScript book : [_TypeScript Deep Dive_](https://basarat.gitbooks.io/typescript/content/docs/quick/browser.html).
+Develop an application to show and search movies, series, documentary and family
 
 # Setup
 
@@ -24,25 +22,14 @@ Now you can open `index.html` in your browser to see the results. Edit a TypeScr
 - index.html
 - app.tsx
 
-**Why React**
-
-- `console.log(<div>Hello world</div>)`;
-- `console.log(ReactDomServer.renderToString(<div>Hello world</div>))`;
-
 **Checking**
 
-- Misspell the component (Hellow)
-- Misspell an attribute (compler)
-- Invalid type for an attribute (compiler={123})
+- Review states
 
 **Refactoring**
 
-- Add a new attribute (message: string)
-- Change the type of an attribute (message: number)
-- Rename an attribute (message -> messages)
-- Rename the component (Hello -> HelloPeople)
+- Improve templates
 
 **Usages**
 
-- The component (2 places)
-- The attribute (3 places)
+- Composition through several component pieces
