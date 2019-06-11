@@ -12,7 +12,7 @@ interface ISingleMovie {
   location: any;
 }
 
-export default class Movies extends React.Component<ISingleMovie> {
+export class Movie extends React.Component<ISingleMovie> {
   public location: any;
   retrievedProps: any;
 
@@ -28,39 +28,32 @@ export default class Movies extends React.Component<ISingleMovie> {
     if (this.props.location) {
       this.props = this.props.location.state.referrer;
     }
-    const {
-      id,
-      title,
-      overview,
-      release_date,
-      poster_path,
-      popularity
-    } = this.props;
     return (
       <li className="row" style={without}>
         <div className="col-sm-6">
           <div className="panel-heading">
-            <h3 className="panel-title">{title}</h3>
+            <h3 className="panel-title">{this.props.title}</h3>
           </div>
           <div className="panel-body">
             <div>
               <span className="label">Description:</span>
-              <p>{overview}</p>
+              <p>{this.props.overview}</p>
             </div>
           </div>
           <hr />
           <div className="panel-footer">
             <div>
-              <span className="label">Release Date:</span> {release_date}
+              <span className="label">Release Date:</span>{" "}
+              {this.props.release_date}
             </div>
             <div>
-              <span className="label">Popularity:</span> {popularity}
+              <span className="label">Popularity:</span> {this.props.popularity}
             </div>
           </div>
           <NavLink
             exact={true}
             to={{
-              pathname: `/player/${id}`,
+              pathname: `/player/${this.props.id}`,
               state: { referrer: this.props }
             }}
           >
@@ -70,7 +63,7 @@ export default class Movies extends React.Component<ISingleMovie> {
         <div className="col-sm-6">
           <img
             width="80%"
-            src={`http://image.tmdb.org/t/p/w342/${poster_path}`}
+            src={`http://image.tmdb.org/t/p/w342/${this.props.poster_path}`}
           />
         </div>
       </li>

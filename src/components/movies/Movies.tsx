@@ -111,7 +111,7 @@ export class Movies extends React.Component<IMovieProp, any> {
             };
           }
           return (
-            <div className="mini-card col-sm-6 col-md-3 col-3" key={movie.id}>
+            <div className="mini-card col-sm-6 col-md-3 col-12" key={movie.id}>
               <NavLink
                 exact={true}
                 to={{

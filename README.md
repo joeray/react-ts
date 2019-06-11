@@ -8,6 +8,7 @@ Develop an application to show and search movies, series, documentary and family
 git clone https://github.com/joeray/react-ts.git
 npm install
 npm start
+npm test
 ```
 
 Now you can open `index.html` in your browser to see the results. Edit a TypeScript file and refresh your browser to play around.

@@ -7,7 +7,7 @@ interface IPlayer {
   title: string;
   location: any;
 }
-export default class Player extends React.Component<IPlayer, any> {
+export class Player extends React.Component<IPlayer, any> {
   public location: any;
   public manifestUri =
     "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8";

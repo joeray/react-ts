@@ -87,7 +87,7 @@ export class Search extends React.Component<ISearch, any> {
           backgroundSize: "cover"
         };
         return (
-          <div className="col-3" key={movie.id}>
+          <div className="col-sm-6 col-md-3 col-12" key={movie.id}>
             <NavLink
               exact={true}
               to={{

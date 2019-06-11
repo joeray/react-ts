@@ -1,20 +1,11 @@
 import { EventEmitter } from "events";
 import axios from "axios";
-
-interface IMoviesStore {
-  emit: any;
-  on: any;
-  removeListener: any;
-}
-class MoviesStore extends EventEmitter<IMoviesStore> {
+class MoviesStore extends EventEmitter {
   public movies;
   public series;
   public families;
   public documentaries;
   public movieFound = {};
-  public on: any;
-  public emit;
-  public removeListener: any;
 
   constructor() {
     super();

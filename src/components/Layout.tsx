@@ -2,8 +2,8 @@ import * as React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { Movies } from "./movies/Movies";
-import Movie from "./movie/Movie";
-import Player from "./player/Player";
+import { Movie } from "./movie/Movie";
+import { Player } from "./player/Player";
 import { Search } from "./search/Search";
 import { Header } from "./header/Header";
 
